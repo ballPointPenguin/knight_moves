@@ -24,6 +24,7 @@ defmodule KnightMovesWeb.Router do
     live "/games/:id/edit", GameLive.Index, :edit
     live "/games/:id", GameLive.Show, :show
     live "/games/:id/show/edit", GameLive.Show, :edit
+    live "/games/:id/play", GameLive.Play, :play
 
     live "/people", PersonLive.Index, :index
     live "/people/new", PersonLive.Index, :new

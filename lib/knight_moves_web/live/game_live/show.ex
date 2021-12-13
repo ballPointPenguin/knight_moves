@@ -19,6 +19,9 @@ defmodule KnightMovesWeb.GameLive.Show do
      |> assign(:game, game)}
   end
 
+  @impl true
+  def handle_event("square_click", _value, socket), do: {:noreply, socket}
+
   defp page_title(:show), do: "Show Game"
   defp page_title(:edit), do: "Edit Game"
 end

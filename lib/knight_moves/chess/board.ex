@@ -41,7 +41,6 @@ defmodule KnightMoves.Chess.Board do
     |> String.split()
     |> List.first()
     |> String.split("/")
-    |> Enum.reverse()
     |> Enum.map(fn row -> fen_row_to_pieces(row) end)
 
     # require IEx; IEx.pry

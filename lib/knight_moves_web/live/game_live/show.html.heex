@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="flex p-1 my-3 border border-black">
-    <ul>
+    <ul class="flex-1">
       <li>
         <strong>Name:</strong>
         <%= @game.name %>
@@ -23,6 +23,11 @@
         <%= @game.fen %>
       </li>
     </ul>
+    <%= live_patch to: Routes.game_play_path(@socket, :play, @game) do %>
+      <button type="button" class="btn-nav">
+        Play this board
+      </button>
+    <% end %>
   </div>
 
   <div class="w-[min(95vw,100vh-12rem)] mx-auto">
