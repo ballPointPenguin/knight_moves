@@ -1,9 +1,10 @@
 defmodule KnightMovesWeb.Square do
   use Phoenix.Component
 
-  def render(%{pos: {row, col}} = assigns) do
+  def render(assigns) do
     ~H"""
-    <div class="square" data-square-row={row} data-square-col={col}>
+    <div class={if @shade == :dsq, do: "bg-sky-600"}
+      data-square-row={@row} data-square-col={@col} data-square-piece={@piece}>
       <span>
         <%= if @src do %>
           <img src={@src}>

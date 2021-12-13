@@ -48,14 +48,25 @@ defmodule KnightMoves.Chess.Board do
     ]
   end
 
+  # {row, col, piece, shade}
   defp make_tuples(matrix) do
     flat_matrix = List.flatten(matrix)
 
     for i <- 0..63 do
-      Tuple.append(
-        Enum.at(@squares, i),
-        Enum.at(flat_matrix, i)
-      )
+      Enum.at(@squares, i)
+      |> Tuple.append(Enum.at(flat_matrix, i))
+      |> Tuple.append(square_shade(i))
+    end
+  end
+
+  # Determine if a given square integer is dark or white shaded
+  defp square_shade(i) do
+    case Integer.mod(i, 2) == Integer.floor_div(i, 8) |> Integer.mod(2) do
+      true ->
+        :lsq
+
+      false ->
+        :dsq
     end
   end
 end

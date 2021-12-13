@@ -28,6 +28,9 @@ module.exports = {
           '0%': { opacity: 1 },
           '100%': { opacity: 0 }
         }
+      },
+      gridTemplateColumns: {
+        '8-eq': 'repeat(8, 1fr)'
       }
     },
   },

@@ -17,8 +17,9 @@ defmodule KnightMovesWeb.GameLive.BoardComponent do
   def render(%{board: board} = assigns) do
     ~H"""
     <div class="board">
-      <%= for {col, row, piece} <- board.tuples do %>
-        <KnightMovesWeb.Square.render piece="&#9813;" pos={{row, col}} src={piece_svg_src(piece)} />
+      <%= for {row, col, piece, shade} <- board.tuples do %>
+        <KnightMovesWeb.Square.render
+          row={row} col={col} piece={piece} shade={shade} src={piece_svg_src(piece)} />
       <% end %>
     </div>
     """
