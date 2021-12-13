@@ -35,17 +35,47 @@ defmodule KnightMoves.Chess.Board do
   end
 
   # @default_fen "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-  defp parse_fen(_fen) do
-    [
-      [:R, :N, :B, :Q, :K, :B, :N, :R],
-      [:P, :P, :P, :P, :P, :P, :P, :P],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [:p, :p, :p, :p, :p, :p, :p, :p],
-      [:r, :n, :b, :q, :k, :b, :n, :r]
-    ]
+  defp parse_fen(fen) do
+    # parsed =
+    fen
+    |> String.split()
+    |> List.first()
+    |> String.split("/")
+    |> Enum.reverse()
+    |> Enum.map(fn row -> fen_row_to_pieces(row) end)
+
+    # require IEx; IEx.pry
+
+    # [
+    #   [:R, :N, :B, :Q, :K, :B, :N, :R],
+    #   [:P, :P, :P, :P, :P, :P, :P, :P],
+    #   [0,  0,  0,  0,  0,  0,  0,  0 ],
+    #   [0,  0,  0,  0,  0,  0,  0,  0 ],
+    #   [0,  0,  0,  0,  0,  0,  0,  0 ],
+    #   [0,  0,  0,  0,  0,  0,  0,  0 ],
+    #   [:p, :p, :p, :p, :p, :p, :p, :p],
+    #   [:r, :n, :b, :q, :k, :b, :n, :r]
+    # ]
+  end
+
+  defp fen_row_to_pieces("8") do
+    [0, 0, 0, 0, 0,  0,  0,  0]
+  end
+
+  defp fen_row_to_pieces(row) do
+    row
+    |> String.split("", trim: true)
+    |> Enum.map(fn char -> fen_char_to_piece(char) end)
+    |> List.flatten()
+  end
+
+  defp fen_char_to_piece(char) do
+    if String.match?(char, ~r/[0-9]/) do
+      spaces = String.to_integer(char)
+      for _ <- 1..spaces, do: 0
+    else
+      String.to_atom(char)
+    end
   end
 
   # {row, col, piece, shade}
