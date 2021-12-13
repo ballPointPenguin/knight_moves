@@ -11,7 +11,8 @@ defmodule KnightMovesWeb.GameLive.Play do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     game = Chess.get_game!(id)
-    moves = [] # TODO get moves from PNG if exists
+    # TODO get moves from PNG if exists
+    moves = []
     selected_square = nil
     {:ok, bb_pid} = :binbo.new_server()
     {:ok, :continue} = :binbo.new_game(bb_pid, game.fen)
@@ -36,7 +37,7 @@ defmodule KnightMovesWeb.GameLive.Play do
 
     case selected_square do
       nil ->
-        if (piece == "0") do
+        if piece == "0" do
           {:noreply, socket}
         else
           {:noreply, assign(socket, :selected_square, "#{col}#{row}")}
@@ -44,8 +45,7 @@ defmodule KnightMovesWeb.GameLive.Play do
 
       _ ->
         new_move = {selected_square, "#{col}#{row}"}
-        {:noreply,
-         submit_move(socket, new_move)}
+        {:noreply, submit_move(socket, new_move)}
     end
   end
 
@@ -56,20 +56,20 @@ defmodule KnightMovesWeb.GameLive.Play do
 
     case response do
       {:ok, :continue} ->
-         socket
-         |> assign(:selected_square, nil)
-         |> assign(:moves, Enum.concat(moves, [{m1, m2}]))
-         |> update_game()
+        socket
+        |> assign(:selected_square, nil)
+        |> assign(:moves, Enum.concat(moves, [{m1, m2}]))
+        |> update_game()
 
       {:ok, _status} ->
         # TODO handle checkmate or draw or whatever
-         socket
-         |> assign(:selected_square, nil)
+        socket
+        |> assign(:selected_square, nil)
 
       _ ->
         # TODO handle error or anything else
-         socket
-         |> assign(:selected_square, nil)
+        socket
+        |> assign(:selected_square, nil)
     end
   end
 

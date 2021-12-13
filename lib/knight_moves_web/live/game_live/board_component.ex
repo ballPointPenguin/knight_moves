@@ -2,8 +2,18 @@ defmodule KnightMovesWeb.GameLive.BoardComponent do
   use KnightMovesWeb, :live_component
 
   @piece_image_map [
-    R: :rl, N: :nl, B: :bl, Q: :ql, K: :kl, P: :pl,
-    r: :rd, n: :nd, b: :bd, q: :qd, k: :kd, p: :pd
+    R: :rl,
+    N: :nl,
+    B: :bl,
+    Q: :ql,
+    K: :kl,
+    P: :pl,
+    r: :rd,
+    n: :nd,
+    b: :bd,
+    q: :qd,
+    k: :kd,
+    p: :pd
   ]
 
   @impl true

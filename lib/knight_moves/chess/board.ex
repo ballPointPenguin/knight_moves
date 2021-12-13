@@ -1,22 +1,20 @@
 defmodule KnightMoves.Chess.Board do
-  @cols [:a,:b,:c,:d,:e,:f,:g,:h]
-  @rows [8,7,6,5,4,3,2,1]
+  @cols [:a, :b, :c, :d, :e, :f, :g, :h]
+  @rows [8, 7, 6, 5, 4, 3, 2, 1]
   @squares for row <- @rows, col <- @cols, do: {row, col}
 
-  defstruct [
-    orientation: :default,
-    matrix: [
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ],
-      [0,  0,  0,  0,  0,  0,  0,  0 ]
-    ],
-    tuples: []
-  ]
+  defstruct orientation: :default,
+            matrix: [
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0]
+            ],
+            tuples: []
 
   def flip(%__MODULE__{orientation: :default} = board) do
     Map.merge(board, %{orientation: :inverse})
@@ -58,7 +56,7 @@ defmodule KnightMoves.Chess.Board do
   end
 
   defp fen_row_to_pieces("8") do
-    [0, 0, 0, 0, 0,  0,  0,  0]
+    [0, 0, 0, 0, 0, 0, 0, 0]
   end
 
   defp fen_row_to_pieces(row) do

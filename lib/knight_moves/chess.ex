@@ -52,7 +52,7 @@ defmodule KnightMoves.Chess do
   """
   def new_game(attrs \\ %{}) do
     %Game{}
-    |> Map.merge(Game.default_attrs)
+    |> Map.merge(Game.default_attrs())
     |> Map.merge(attrs)
   end
 
