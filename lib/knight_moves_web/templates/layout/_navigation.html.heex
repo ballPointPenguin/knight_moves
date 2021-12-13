@@ -1,0 +1,14 @@
+<nav class="bg-sky-300 container w-full mx-auto border-2 border-b-0 border-black">
+  <div class="flex items-center justify-between w-full p-2">
+    <ul class="flex space-x-8 font-medium">
+      <li class="nav-link"><%= link "Home", to: Routes.page_path(@conn, :index) %></li>
+      <li class="nav-link"><%= link "Games", to: Routes.game_index_path(@conn, :index) %></li>
+      <li class="nav-link"><%= link "People", to: Routes.person_index_path(@conn, :index) %></li>
+    </ul>
+    <%= link to: Routes.game_index_path(@conn, :new) do %>
+      <button type="button" class="nav-button">
+        Play Chess
+      </button>
+    <% end %>
+  </div>
+</nav>

@@ -1,4 +1,4 @@
-<h1>Listing Games</h1>
+<h1 class="text-lg font-bold">Games</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.game_index_path(@socket, :index)}>
@@ -13,27 +13,28 @@
   </.modal>
 <% end %>
 
-<table>
+<table class="bg-amber-100 flex flex-col border border-black">
   <thead>
-    <tr>
-      <th>Fen</th>
-
-      <th></th>
+    <tr class="flex">
+      <th class="w-8 border-r border-black">ID</th>
+      <th class="w-1/2 border-r border-black">FEN</th>
+      <th class="flex-1"></th>
     </tr>
   </thead>
   <tbody id="games">
     <%= for game <- @games do %>
-      <tr id={"game-#{game.id}"}>
-        <td><%= game.fen %></td>
+      <tr class="flex border-t border-black" id={"game-#{game.id}"}>
+        <td class="w-8 text-center border-r border-black"><%= link game.id, to: Routes.game_show_path(@socket, :show, game) %></td>
+        <td class="w-1/2 px-1 overflow-hidden text-xs border-r border-black"><%= game.fen %></td>
 
-        <td>
-          <span><%= live_redirect "Show", to: Routes.game_show_path(@socket, :show, game) %></span>
-          <span><%= live_patch "Edit", to: Routes.game_index_path(@socket, :edit, game) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: game.id, data: [confirm: "Are you sure?"] %></span>
+        <td class="sm:text-base flex flex-wrap justify-between flex-1 px-1 space-x-3 text-sm">
+          <span class="nav-link"><%= live_redirect "Show", to: Routes.game_show_path(@socket, :show, game) %></span>
+          <span class="nav-link"><%= live_patch "Edit", to: Routes.game_index_path(@socket, :edit, game) %></span>
+          <span class="nav-link"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: game.id, data: [confirm: "Are you sure?"] %></span>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<span><%= live_patch "New Game", to: Routes.game_index_path(@socket, :new) %></span>
+<span class="nav-button m-2"><%= live_patch "New Game", to: Routes.game_index_path(@socket, :new) %></span>
