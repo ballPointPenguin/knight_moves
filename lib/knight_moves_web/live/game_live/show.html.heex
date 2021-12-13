@@ -1,34 +1,35 @@
-<h1>Show Game</h1>
+<div class="flex flex-col">
+  <%= if @live_action in [:edit] do %>
+    <.modal return_to={Routes.game_show_path(@socket, :show, @game)}>
+      <.live_component
+        module={KnightMovesWeb.GameLive.FormComponent}
+        id={@game.id}
+        title={@page_title}
+        action={@live_action}
+        game={@game}
+        return_to={Routes.game_show_path(@socket, :show, @game)}
+      />
+    </.modal>
+  <% end %>
 
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.game_show_path(@socket, :show, @game)}>
+  <div class="flex p-1 my-3 border border-black">
+    <ul>
+      <li>
+        <strong>Name:</strong>
+        <%= @game.name %>
+      </li>
+      <li class="overflow-x-scroll text-sm">
+        <strong>FEN:</strong>
+        <%= @game.fen %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="md:w-1/2 w-full mx-auto">
     <.live_component
-      module={KnightMovesWeb.GameLive.FormComponent}
-      id={@game.id}
-      title={@page_title}
-      action={@live_action}
+      module={KnightMovesWeb.GameLive.BoardComponent}
+      id={@game.id || :new}
       game={@game}
-      return_to={Routes.game_show_path(@socket, :show, @game)}
     />
-  </.modal>
-<% end %>
-
-<ul>
-  <li>
-    <strong>ID:</strong>
-    <%= @game.id %>
-  </li>
-  <li>
-    <strong>Name:</strong>
-    <%= @game.name %>
-  </li>
-  <li>
-    <strong>FEN:</strong>
-    <%= @game.fen %>
-  </li>
-</ul>
-
-<div class="flex mt-2 space-x-4">
-  <span><%= live_patch "Edit", to: Routes.game_show_path(@socket, :edit, @game), class: "btn-primary" %></span>
-  <span><%= live_redirect "Back", to: Routes.game_index_path(@socket, :index), class: "btn-primary" %></span>
+  </div>
 </div>

@@ -1,0 +1,55 @@
+@layer components {
+  .board {
+    @apply font-sans;
+  }
+
+  .board {
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(8, [col] 12.5%);
+    color: white;
+    border: solid 3px black;
+    text-align: center;
+    background-color: lightgray;
+  }
+
+  .board div {
+    aspect-ratio: 1;
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .board div:nth-child(-n+8):nth-child(even) {
+    background: green;
+  }
+
+  .board div:nth-child(n+8):nth-child(-n+16):nth-child(odd) {
+    background: green;
+  }
+
+  .board div:nth-child(n+17):nth-child(-n+24):nth-child(even) {
+    background: green;
+  }
+
+  .board div:nth-child(n+25):nth-child(-n+32):nth-child(odd) {
+    background: green;
+  }
+
+  .board div:nth-child(n+33):nth-child(-n+40):nth-child(even) {
+    background: green;
+  }
+
+  .board div:nth-child(n+41):nth-child(-n+48):nth-child(odd) {
+    background: green;
+  }
+
+  .board div:nth-child(n+49):nth-child(-n+56):nth-child(even) {
+    background: green;
+  }
+
+  .board div:nth-child(n+57):nth-child(-n+64):nth-child(odd) {
+    background: green;
+  }
+}

@@ -7,6 +7,7 @@
 
 /* Custom Components */
 @import './components/alerts.css';
+@import './components/board.css';
 @import './components/buttons.css';
 @import './components/feedback.css';
 @import './components/modal.css';
