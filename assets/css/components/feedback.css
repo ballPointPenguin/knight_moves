@@ -1,0 +1,9 @@
+@layer components {
+  .invalid-feedback {
+    @apply text-red-600 block -mt-4 mb-8;
+  }
+  .phx-no-feedback.invalid-feedback,
+  .phx-no-feedback .invalid-feedback {
+    @apply hidden;
+  }
+}
