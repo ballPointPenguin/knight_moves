@@ -6,6 +6,7 @@ defmodule KnightMoves.Chess.Game do
 
   schema "games" do
     field :fen, :string
+    field :name, :string
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule KnightMoves.Chess.Game do
   @doc false
   def changeset(game, attrs) do
     game
-    |> cast(attrs, [:fen])
+    |> cast(attrs, [:fen, :name])
     |> validate_required([:fen])
   end
 

@@ -1,7 +1,4 @@
 @layer components {
-  .nav-button {
-    @apply hover:bg-green-400 block px-3 py-2 text-center bg-green-300 border border-gray-700 rounded-lg;
-  }
   .nav-link {
     @apply hover:text-violet-800 text-blue-900;
   }

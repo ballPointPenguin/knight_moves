@@ -14,13 +14,21 @@
 <% end %>
 
 <ul>
-
+  <li>
+    <strong>ID:</strong>
+    <%= @game.id %>
+  </li>
+  <li>
+    <strong>Name:</strong>
+    <%= @game.name %>
+  </li>
   <li>
     <strong>FEN:</strong>
     <%= @game.fen %>
   </li>
-
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.game_show_path(@socket, :edit, @game), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.game_index_path(@socket, :index) %></span>
+<div class="flex mt-2 space-x-4">
+  <span><%= live_patch "Edit", to: Routes.game_show_path(@socket, :edit, @game), class: "btn-primary" %></span>
+  <span><%= live_redirect "Back", to: Routes.game_index_path(@socket, :index), class: "btn-primary" %></span>
+</div>

@@ -1,0 +1,8 @@
+@layer components {
+  .btn-nav {
+    @apply hover:bg-green-400 block px-3 py-2 text-center bg-green-300 border border-gray-700 rounded-lg;
+  }
+  .btn-primary {
+    @apply hover:bg-sky-400 bg-sky-300 block px-3 py-2 text-center border border-gray-700 rounded-lg;
+  }
+}
