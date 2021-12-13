@@ -19,7 +19,11 @@ defmodule KnightMovesWeb.Router do
 
     get "/", PageController, :index
 
-    live "/chess", ChessLive.Index, :index
+    live "/games", GameLive.Index, :index
+    live "/games/new", GameLive.Index, :new
+    live "/games/:id/edit", GameLive.Index, :edit
+    live "/games/:id", GameLive.Show, :show
+    live "/games/:id/show/edit", GameLive.Show, :edit
 
     live "/people", PersonLive.Index, :index
     live "/people/new", PersonLive.Index, :new
