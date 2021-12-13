@@ -1,0 +1,41 @@
+<h1>Listing People</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.person_index_path(@socket, :index)}>
+    <.live_component
+      module={KnightMovesWeb.PersonLive.FormComponent}
+      id={@person.id || :new}
+      title={@page_title}
+      action={@live_action}
+      person={@person}
+      return_to={Routes.person_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="people">
+    <%= for person <- @people do %>
+      <tr id={"person-#{person.id}"}>
+        <td><%= person.name %></td>
+        <td><%= person.email %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.person_show_path(@socket, :show, person) %></span>
+          <span><%= live_patch "Edit", to: Routes.person_index_path(@socket, :edit, person) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: person.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Person", to: Routes.person_index_path(@socket, :new) %></span>

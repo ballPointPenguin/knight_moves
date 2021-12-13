@@ -20,6 +20,12 @@ defmodule KnightMovesWeb.Router do
     get "/", PageController, :index
 
     live "/chess", ChessLive.Index, :index
+
+    live "/people", PersonLive.Index, :index
+    live "/people/new", PersonLive.Index, :new
+    live "/people/:id/edit", PersonLive.Index, :edit
+    live "/people/:id", PersonLive.Show, :show
+    live "/people/:id/show/edit", PersonLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
