@@ -6,6 +6,7 @@ defmodule KnightMoves.Chess do
   import Ecto.Query, warn: false
   alias KnightMoves.Repo
 
+  alias KnightMoves.Chess.Board
   alias KnightMoves.Chess.Game
 
   @doc """
@@ -118,5 +119,23 @@ defmodule KnightMoves.Chess do
   """
   def change_game(%Game{} = game, attrs \\ %{}) do
     Game.changeset(game, attrs)
+  end
+
+  @doc """
+  Given a Game instance, returns a Board struct.
+
+  ## Examples
+
+      iex> game_board(game)
+      %Board{}
+  """
+  def game_board(%{fen: fen}) do
+    %Board{}
+    |> Board.import_fen(fen)
+    |> Board.assemble()
+  end
+
+  def game_board(_game) do
+    %Board{}
   end
 end

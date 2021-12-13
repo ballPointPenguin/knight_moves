@@ -1,27 +1,39 @@
 defmodule KnightMovesWeb.GameLive.BoardComponent do
   use KnightMovesWeb, :live_component
 
-  @rows [8,7,6,5,4,3,2,1]
-
-  @cols [:a,:b,:c,:d,:e,:f,:g,:h]
+  @piece_image_map [
+    R: :rd, N: :nd, B: :bd, Q: :qd, K: :kd, P: :pd,
+    r: :rl, n: :nl, b: :bl, q: :ql, k: :kl, p: :pl
+  ]
 
   @impl true
   def update(assigns, socket) do
     {:ok,
      socket
-     |> assign(:rows, @rows)
-     |> assign(:cols, @cols)
      |> assign(assigns)}
   end
 
   @impl true
-  def render(assigns) do
+  def render(%{board: board} = assigns) do
     ~H"""
     <div class="board">
-      <%= for row <- @rows, col <- @cols do %>
-        <KnightMovesWeb.Square.render piece="&#9813;" pos={{row, col}} />
+      <%= for {col, row, piece} <- board.tuples do %>
+        <KnightMovesWeb.Square.render piece="&#9813;" pos={{row, col}} src={piece_svg_src(piece)} />
       <% end %>
     </div>
     """
+  end
+
+  defp piece_svg_src(0), do: nil
+
+  defp piece_svg_src(piece) do
+    case @piece_image_map[piece] do
+      nil ->
+        nil
+
+      filename ->
+        path = "/svg/#{filename}.svg"
+        Routes.static_path(KnightMovesWeb.Endpoint, path)
+    end
   end
 end
