@@ -1,6 +1,16 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+/* Tailwind */
+/* Must use @import and not tailwind to appease the postcss-import plugin */
+/* postcss-import requires that all @import statements be at the top of the file. */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom Components */
+@import './components/buttons.css';
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;
