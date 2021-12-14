@@ -138,4 +138,21 @@ defmodule KnightMoves.Chess do
   def game_board(_game) do
     %Board{}
   end
+
+  def start_bb_server do
+    :binbo.new_server()
+  end
+
+  def start_game(bb_pid, %Game{fen: fen}) do
+    :binbo.new_game(bb_pid, fen)
+  end
+
+  def refresh_game_state(bb_pid, game) do
+    {:ok, fen} = :binbo.get_fen(bb_pid)
+    update_game(game, %{fen: fen})
+  end
+
+  def submit_move(bb_pid, move) do
+    :binbo.move(bb_pid, move)
+  end
 end

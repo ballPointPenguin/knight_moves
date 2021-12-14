@@ -33,7 +33,7 @@
           <span class="nav-link"><%= live_redirect "Show", to: Routes.game_show_path(@socket, :show, game) %></span>
           <span class="nav-link"><%= live_patch "Edit", to: Routes.game_index_path(@socket, :edit, game) %></span>
           <span class="nav-link"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: game.id, data: [confirm: "Are you sure?"] %></span>
-          <span class="nav-link"><%= live_patch "Play", to: Routes.game_play_path(@socket, :play, game) %></span>
+          <span class="nav-link"><%= live_patch "Play", to: Routes.game_show_path(@socket, :play, game) %></span>
         </td>
       </tr>
     <% end %>

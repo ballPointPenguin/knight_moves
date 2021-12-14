@@ -12,25 +12,27 @@
     </.modal>
   <% end %>
 
-  <div class="flex p-1 my-3 border border-black">
-    <ul class="flex-1">
+  <div class="flex p-1 mb-2 border border-black">
+    <ul class="flex flex-col w-4/5 p-1 mr-2 overflow-x-auto text-sm">
       <li>
-        <strong>Name:</strong>
+        <strong>Game:</strong>
         <%= @game.name %>
       </li>
-      <li class="overflow-x-auto text-sm">
-        <strong>FEN:</strong>
+      <li class="inline-flex text-xs">
+        <strong class="pr-1">FEN:</strong>
         <%= @game.fen %>
       </li>
     </ul>
-    <%= live_patch to: Routes.game_play_path(@socket, :play, @game) do %>
-      <button type="button" class="btn-nav">
-        Play this board
-      </button>
+    <%= if @live_action != :play do %>
+      <%= live_patch to: Routes.game_show_path(@socket, :play, @game), class: "" do %>
+        <button type="button" class="btn-nav">
+          Play this board
+        </button>
+      <% end %>
     <% end %>
   </div>
 
-  <div class="w-[min(95vw,100vh-12rem)] mx-auto">
+  <div class="w-[min(80vw,100vh-12rem)] mx-auto">
     <.live_component
       module={KnightMovesWeb.GameLive.BoardComponent}
       id={@game.id || :new}
