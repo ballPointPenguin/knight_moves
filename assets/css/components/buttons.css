@@ -1,8 +1,15 @@
 @layer components {
-  .btn-nav {
-    @apply hover:bg-green-400 block px-3 py-2 text-center bg-green-300 border border-gray-700 rounded-lg;
+  .button {
+    @apply px-7 whitespace-nowrap inline-block h-10 text-xs font-bold leading-10 tracking-wider text-center uppercase border rounded cursor-pointer;
   }
-  .btn-primary {
-    @apply hover:bg-sky-400 bg-sky-300 block px-3 py-2 text-center border border-gray-700 rounded-lg;
+
+  .button-nav {
+    @apply button;
+    @apply text-white bg-blue-700 border-blue-700 hover:bg-gray-500 hover:border-gray-500;
+  }
+
+  .button-primary {
+    @apply button;
+    @apply text-black bg-green-300 border-green-300 hover:bg-gray-500 hover:border-gray-500;
   }
 }
