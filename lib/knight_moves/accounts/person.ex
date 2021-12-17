@@ -1,4 +1,8 @@
 defmodule KnightMoves.Accounts.Person do
+  @moduledoc """
+  The Accounts Person.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

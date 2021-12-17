@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.Telemetry do
+  @moduledoc """
+  The Web Telemetry.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

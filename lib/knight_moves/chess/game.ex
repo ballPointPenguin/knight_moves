@@ -1,4 +1,8 @@
 defmodule KnightMoves.Chess.Game do
+  @moduledoc """
+  The Chess Game.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

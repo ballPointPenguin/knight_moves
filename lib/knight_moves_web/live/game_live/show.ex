@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.GameLive.Show do
+  @moduledoc """
+  Show a Game.
+  """
+
   use KnightMovesWeb, :live_view
 
   alias KnightMoves.Chess
@@ -22,7 +26,6 @@ defmodule KnightMovesWeb.GameLive.Show do
   @impl true
   def handle_event("square_click", square, socket) do
     %{player_to_move: player_to_move} = socket.assigns
-    IO.inspect(player_to_move, label: "player_to_move")
 
     if player_to_move do
       select_square(socket, square)
@@ -50,9 +53,9 @@ defmodule KnightMovesWeb.GameLive.Show do
 
   defp initialize_board(socket, game, live_action) do
     socket
-     |> assign(:board, Chess.game_board(game))
-     |> assign(:game, game)
-     |> assign(:player_to_move, player_to_move(game, live_action))
+    |> assign(:board, Chess.game_board(game))
+    |> assign(:game, game)
+    |> assign(:player_to_move, player_to_move(game, live_action))
   end
 
   defp select_square(socket, square) do

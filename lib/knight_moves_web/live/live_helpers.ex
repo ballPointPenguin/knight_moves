@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.LiveHelpers do
+  @moduledoc """
+  Helper functions included in LiveViews.
+  """
+
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 

@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.PersonLive.Index do
+  @moduledoc """
+  Web Index of People.
+  """
+
   use KnightMovesWeb, :live_view
 
   alias KnightMoves.Accounts

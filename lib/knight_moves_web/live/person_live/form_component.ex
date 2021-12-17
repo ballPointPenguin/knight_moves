@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.PersonLive.FormComponent do
+  @moduledoc """
+  The Create/Edit Person Form.
+  """
+
   use KnightMovesWeb, :live_component
 
   alias KnightMoves.Accounts

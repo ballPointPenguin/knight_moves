@@ -1,4 +1,11 @@
 defmodule KnightMoves.Chess.Board do
+  @moduledoc """
+  The Chess Board module.
+  This is a representation of the board that is used to render and
+  interact with it. It is not persisted in the database. It can be generated
+  from a Game record and used while the application is running.
+  """
+
   @cols [:a, :b, :c, :d, :e, :f, :g, :h]
   @rows [8, 7, 6, 5, 4, 3, 2, 1]
   @squares for row <- @rows, col <- @cols, do: {row, col}

@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.GameLive.Index do
+  @moduledoc """
+  Web Index of Games.
+  """
+
   use KnightMovesWeb, :live_view
 
   alias KnightMoves.Chess

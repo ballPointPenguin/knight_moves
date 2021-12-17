@@ -52,7 +52,8 @@ defmodule KnightMoves.MixProject do
       {:plug_cowboy, "~> 2.5"},
 
       # Added by me
-      {:binbo, "~> 3.0"}
+      {:binbo, "~> 3.0"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 

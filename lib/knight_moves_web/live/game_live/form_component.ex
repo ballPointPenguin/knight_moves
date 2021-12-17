@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.GameLive.FormComponent do
+  @moduledoc """
+  Form to create/edit a Game.
+  """
+
   use KnightMovesWeb, :live_component
 
   alias KnightMoves.Chess

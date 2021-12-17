@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.PersonLive.Show do
+  @moduledoc """
+  Show a Person.
+  """
+
   use KnightMovesWeb, :live_view
 
   alias KnightMoves.Accounts

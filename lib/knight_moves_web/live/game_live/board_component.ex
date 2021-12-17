@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.GameLive.BoardComponent do
+  @moduledoc """
+  Live Component for rendering and interacting with a board.
+  """
+
   use KnightMovesWeb, :live_component
 
   @piece_image_map [

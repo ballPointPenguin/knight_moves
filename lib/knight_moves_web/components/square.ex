@@ -1,4 +1,8 @@
 defmodule KnightMovesWeb.Square do
+  @moduledoc """
+  Web component (non-liveview) for rendering each square of a chess board.
+  """
+
   use Phoenix.Component
 
   def render(assigns) do
