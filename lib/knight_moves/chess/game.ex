@@ -16,12 +16,14 @@ defmodule KnightMoves.Chess.Game do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map()) :: Changeset.t()
   def changeset(game, attrs) do
     game
     |> cast(attrs, [:fen, :name])
     |> validate_required([:fen])
   end
 
+  @spec default_attrs() :: %{fen: String.t()}
   def default_attrs do
     %{fen: @default_fen}
   end

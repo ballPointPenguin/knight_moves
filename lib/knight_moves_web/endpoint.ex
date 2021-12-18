@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Refactor.ModuleDependencies
 defmodule KnightMovesWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :knight_moves
 

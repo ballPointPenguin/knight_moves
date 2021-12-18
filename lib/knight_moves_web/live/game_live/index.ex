@@ -7,14 +7,22 @@ defmodule KnightMovesWeb.GameLive.Index do
 
   alias KnightMoves.Chess
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :games, list_games())}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("delete", %{"id" => id}, socket) do
+    game = Chess.get_game!(id)
+    {:ok, _game} = Chess.delete_game(game)
+
+    {:noreply, assign(socket, :games, list_games())}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
@@ -33,14 +41,6 @@ defmodule KnightMovesWeb.GameLive.Index do
     socket
     |> assign(:page_title, "Listing Games")
     |> assign(:game, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    game = Chess.get_game!(id)
-    {:ok, _} = Chess.delete_game(game)
-
-    {:noreply, assign(socket, :games, list_games())}
   end
 
   defp list_games do

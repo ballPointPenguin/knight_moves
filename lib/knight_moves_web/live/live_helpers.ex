@@ -27,6 +27,7 @@ defmodule KnightMovesWeb.LiveHelpers do
         />
       </.modal>
   """
+  @spec modal(map()) :: Phoenix.LiveView.Rendered.t()
   def modal(assigns) do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 

@@ -7,6 +7,7 @@ defmodule KnightMoves.Chess.Board do
   """
 
   @cols [:a, :b, :c, :d, :e, :f, :g, :h]
+  @pieces [:R, :N, :B, :Q, :K, :P, :r, :n, :b, :q, :k, :p]
   @rows [8, 7, 6, 5, 4, 3, 2, 1]
   @squares for row <- @rows, col <- @cols, do: {row, col}
 
@@ -23,6 +24,7 @@ defmodule KnightMoves.Chess.Board do
             ],
             tuples: []
 
+  @spec flip(%__MODULE__{}) :: %__MODULE__{}
   def flip(%__MODULE__{orientation: :default} = board) do
     Map.merge(board, %{orientation: :inverse})
   end
@@ -31,24 +33,23 @@ defmodule KnightMoves.Chess.Board do
     Map.merge(board, %{orientation: :default})
   end
 
+  @spec import_fen(%__MODULE__{}, String.t()) :: %__MODULE__{}
   def import_fen(%__MODULE__{} = board, fen) do
     Map.merge(board, %{matrix: parse_fen(fen)})
   end
 
+  @spec assemble(%__MODULE__{}) :: %__MODULE__{}
   def assemble(%__MODULE__{matrix: matrix} = board) do
     Map.merge(board, %{tuples: make_tuples(matrix)})
   end
 
   # @default_fen "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
   defp parse_fen(fen) do
-    # parsed =
     fen
     |> String.split()
     |> List.first()
     |> String.split("/")
     |> Enum.map(fn row -> fen_row_to_pieces(row) end)
-
-    # require IEx; IEx.pry
 
     # [
     #   [:R, :N, :B, :Q, :K, :B, :N, :R],
@@ -74,11 +75,14 @@ defmodule KnightMoves.Chess.Board do
   end
 
   defp fen_char_to_piece(char) do
-    if String.match?(char, ~r/[0-9]/) do
-      spaces = String.to_integer(char)
-      for _ <- 1..spaces, do: 0
-    else
-      String.to_atom(char)
+    cond do
+      String.match?(char, ~r/[0-9]/) ->
+        spaces = String.to_integer(char)
+        for _space <- 1..spaces, do: 0
+
+      # Ensure the atoms exist before using String.to_existing_atom
+      char in Enum.map(@pieces, &Atom.to_string/1) ->
+        String.to_existing_atom(char)
     end
   end
 
@@ -87,20 +91,26 @@ defmodule KnightMoves.Chess.Board do
     flat_matrix = List.flatten(matrix)
 
     for i <- 0..63 do
-      Enum.at(@squares, i)
+      @squares
+      |> Enum.at(i)
       |> Tuple.append(Enum.at(flat_matrix, i))
       |> Tuple.append(square_shade(i))
     end
   end
 
-  # Determine if a given square integer is dark or white shaded
-  defp square_shade(i) do
-    case Integer.mod(i, 2) == Integer.floor_div(i, 8) |> Integer.mod(2) do
+  @spec square_shade(non_neg_integer()) :: :light | :dark
+  defp square_shade(index) do
+    square_even_odd = Integer.mod(index, 2)
+    row_even_odd = index |> Integer.floor_div(8) |> Integer.mod(2)
+
+    # Counting down from row 7 to 0
+    # E.g. A8 is square 0, row 7. even square, odd row. dark square.
+    case square_even_odd == row_even_odd do
       true ->
-        :lsq
+        :light
 
       false ->
-        :dsq
+        :dark
     end
   end
 end

@@ -7,6 +7,7 @@ defmodule KnightMoves.AccountsFixtures do
   @doc """
   Generate a person.
   """
+  @spec person_fixture(map()) :: KnightMoves.Accounts.Person.t()
   def person_fixture(attrs \\ %{}) do
     {:ok, person} =
       attrs

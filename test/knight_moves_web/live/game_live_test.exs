@@ -8,7 +8,7 @@ defmodule KnightMovesWeb.GameLiveTest do
   @update_attrs %{fen: "some updated fen"}
   @invalid_attrs %{fen: nil}
 
-  defp create_game(_) do
+  defp create_game(_attrs) do
     game = game_fixture()
     %{game: game}
   end
@@ -35,7 +35,7 @@ defmodule KnightMovesWeb.GameLiveTest do
              |> form("#game-form", game: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#game-form", game: @create_attrs)
         |> render_submit()
@@ -57,7 +57,7 @@ defmodule KnightMovesWeb.GameLiveTest do
              |> form("#game-form", game: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#game-form", game: @update_attrs)
         |> render_submit()
@@ -97,7 +97,7 @@ defmodule KnightMovesWeb.GameLiveTest do
              |> form("#game-form", game: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#game-form", game: @update_attrs)
         |> render_submit()

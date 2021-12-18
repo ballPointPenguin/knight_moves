@@ -7,6 +7,7 @@ defmodule KnightMoves.ChessFixtures do
   @doc """
   Generate a game.
   """
+  @spec game_fixture(map()) :: KnightMoves.Chess.Game.t()
   def game_fixture(attrs \\ %{}) do
     {:ok, game} =
       attrs

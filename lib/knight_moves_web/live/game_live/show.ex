@@ -7,13 +7,13 @@ defmodule KnightMovesWeb.GameLive.Show do
 
   alias KnightMoves.Chess
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
-  @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  @impl Phoenix.LiveView
+  def handle_params(%{"id" => id}, _uri, socket) do
     %{live_action: live_action} = socket.assigns
     game = Chess.get_game!(id)
 
@@ -23,7 +23,7 @@ defmodule KnightMovesWeb.GameLive.Show do
      |> setup_board(game, live_action)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("square_click", square, socket) do
     %{player_to_move: player_to_move} = socket.assigns
 
@@ -70,7 +70,7 @@ defmodule KnightMovesWeb.GameLive.Show do
           {:noreply, assign(socket, :selected_square, "#{col}#{row}")}
         end
 
-      _ ->
+      _square ->
         new_move = {selected_square, "#{col}#{row}"}
         {:noreply, submit_move(socket, new_move)}
     end
@@ -89,25 +89,23 @@ defmodule KnightMovesWeb.GameLive.Show do
 
       {:ok, _status} ->
         # TODO handle checkmate or draw or whatever
-        socket
-        |> assign(:selected_square, nil)
+        assign(socket, :selected_square, nil)
 
-      _ ->
+      _any ->
         # TODO handle error or anything else
-        socket
-        |> assign(:selected_square, nil)
+        assign(socket, :selected_square, nil)
     end
   end
 
   defp update_game(socket) do
     %{bb_pid: bb_pid, game: game} = socket.assigns
 
-    {:ok, game} = Chess.refresh_game_state(bb_pid, game)
+    {:ok, refreshed_game} = Chess.refresh_game_state(bb_pid, game)
     # TODO - also update game state and status
 
     socket
-    |> assign(:game, game)
-    |> assign(:board, Chess.game_board(game))
+    |> assign(:game, refreshed_game)
+    |> assign(:board, Chess.game_board(refreshed_game))
   end
 
   defp player_to_move(_game, live_action) do

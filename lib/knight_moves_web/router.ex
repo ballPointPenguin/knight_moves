@@ -1,3 +1,5 @@
+# credo:disable-for-this-file Credo.Check.Refactor.ModuleDependencies
+# credo:disable-for-this-file Credo.Check.Warning.MixEnv
 defmodule KnightMovesWeb.Router do
   use KnightMovesWeb, :router
 

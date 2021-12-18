@@ -7,7 +7,7 @@ defmodule KnightMovesWeb.GameLive.FormComponent do
 
   alias KnightMoves.Chess
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def update(%{game: game} = assigns, socket) do
     changeset = Chess.change_game(game)
 
@@ -17,7 +17,7 @@ defmodule KnightMovesWeb.GameLive.FormComponent do
      |> assign(:changeset, changeset)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def handle_event("validate", %{"game" => game_params}, socket) do
     changeset =
       socket.assigns.game
@@ -27,6 +27,7 @@ defmodule KnightMovesWeb.GameLive.FormComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  @impl Phoenix.LiveComponent
   def handle_event("save", %{"game" => game_params}, socket) do
     save_game(socket, socket.assigns.action, game_params)
   end

@@ -20,7 +20,7 @@ defmodule KnightMovesWeb.GameLive.BoardComponent do
     p: :pd
   ]
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def update(assigns, socket) do
     %{board: %{tuples: tuples}} = assigns
 
@@ -30,7 +30,7 @@ defmodule KnightMovesWeb.GameLive.BoardComponent do
      |> assign(:tuples, tuples)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""
     <div class="board">

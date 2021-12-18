@@ -88,7 +88,7 @@
           # If you don't want TODO comments to cause `mix credo` to fail, just
           # set this value to 0 (zero).
           #
-          {Credo.Check.Design.TagTODO, [exit_status: 2]},
+          # {Credo.Check.Design.TagTODO, [exit_status: 2]},
           {Credo.Check.Design.TagFIXME, []},
 
           #
@@ -156,16 +156,9 @@
           {Credo.Check.Warning.UnusedRegexOperation, []},
           {Credo.Check.Warning.UnusedStringOperation, []},
           {Credo.Check.Warning.UnusedTupleOperation, []},
-          {Credo.Check.Warning.UnsafeExec, []}
-        ],
-        disabled: [
-          #
-          # Checks scheduled for next check update (opt-in for now, just replace `false` with `[]`)
+          {Credo.Check.Warning.UnsafeExec, []},
 
-          #
-          # Controversial and experimental checks (opt-in, just move the check to `:enabled`
-          #   and be sure to use `mix credo --strict` to see low priority checks)
-          #
+          # Controversial and experimental checks:
           {Credo.Check.Consistency.MultiAliasImportRequireUse, []},
           {Credo.Check.Consistency.UnusedVariableNames, []},
           {Credo.Check.Design.DuplicatedCode, []},
@@ -196,7 +189,8 @@
           {Credo.Check.Warning.MapGetUnsafePass, []},
           {Credo.Check.Warning.MixEnv, []},
           {Credo.Check.Warning.UnsafeToAtom, []}
-
+        ],
+        disabled: [
           # {Credo.Check.Refactor.MapInto, []},
 
           #

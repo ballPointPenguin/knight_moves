@@ -8,7 +8,7 @@ defmodule KnightMovesWeb.PersonLiveTest do
   @update_attrs %{email: "some updated email", name: "some updated name"}
   @invalid_attrs %{email: nil, name: nil}
 
-  defp create_person(_) do
+  defp create_person(_attrs) do
     person = person_fixture()
     %{person: person}
   end
@@ -35,7 +35,7 @@ defmodule KnightMovesWeb.PersonLiveTest do
              |> form("#person-form", person: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#person-form", person: @create_attrs)
         |> render_submit()
@@ -57,7 +57,7 @@ defmodule KnightMovesWeb.PersonLiveTest do
              |> form("#person-form", person: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#person-form", person: @update_attrs)
         |> render_submit()
@@ -97,7 +97,7 @@ defmodule KnightMovesWeb.PersonLiveTest do
              |> form("#person-form", person: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#person-form", person: @update_attrs)
         |> render_submit()

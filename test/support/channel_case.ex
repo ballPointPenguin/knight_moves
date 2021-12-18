@@ -15,9 +15,9 @@ defmodule KnightMovesWeb.ChannelCase do
   this option is not recommended for other databases.
   """
 
-  alias Ecto.Adapters.SQL.Sandbox
-
   use(ExUnit.CaseTemplate)
+
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do

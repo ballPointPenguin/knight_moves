@@ -14,6 +14,7 @@ defmodule KnightMoves.Accounts.Person do
   end
 
   @doc false
+  @spec changeset(%__MODULE__{}, map()) :: Changeset.t()
   def changeset(person, attrs) do
     person
     |> cast(attrs, [:name, :email])

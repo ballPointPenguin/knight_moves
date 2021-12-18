@@ -17,6 +17,7 @@ defmodule KnightMoves.Accounts do
       [%Person{}, ...]
 
   """
+  @spec list_people() :: [Person.t()] | [] | Ecto.QueryError.t()
   def list_people do
     Repo.all(Person)
   end
@@ -35,6 +36,7 @@ defmodule KnightMoves.Accounts do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_person!(String.t()) :: Person.t() | Ecto.NoResultsError.t()
   def get_person!(id), do: Repo.get!(Person, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule KnightMoves.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_person(map()) :: {:ok, Person.t()} | {:error, Ecto.Changeset.t()}
   def create_person(attrs \\ %{}) do
     %Person{}
     |> Person.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule KnightMoves.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_person(Person.t(), map()) :: {:ok, Person.t()} | {:error, Ecto.Changeset.t()}
   def update_person(%Person{} = person, attrs) do
     person
     |> Person.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule KnightMoves.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_person(Person.t()) :: {:ok, Person.t()} | {:error, Ecto.Changeset.t()}
   def delete_person(%Person{} = person) do
     Repo.delete(person)
   end
@@ -98,6 +103,7 @@ defmodule KnightMoves.Accounts do
       %Ecto.Changeset{data: %Person{}}
 
   """
+  @spec change_person(Person.t(), map()) :: Ecto.Changeset.t()
   def change_person(%Person{} = person, attrs \\ %{}) do
     Person.changeset(person, attrs)
   end

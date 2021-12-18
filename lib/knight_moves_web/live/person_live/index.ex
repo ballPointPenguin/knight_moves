@@ -8,14 +8,22 @@ defmodule KnightMovesWeb.PersonLive.Index do
   alias KnightMoves.Accounts
   alias KnightMoves.Accounts.Person
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :people, list_people())}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("delete", %{"id" => id}, socket) do
+    person = Accounts.get_person!(id)
+    {:ok, _person} = Accounts.delete_person(person)
+
+    {:noreply, assign(socket, :people, list_people())}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
@@ -34,14 +42,6 @@ defmodule KnightMovesWeb.PersonLive.Index do
     socket
     |> assign(:page_title, "Listing People")
     |> assign(:person, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    person = Accounts.get_person!(id)
-    {:ok, _} = Accounts.delete_person(person)
-
-    {:noreply, assign(socket, :people, list_people())}
   end
 
   defp list_people do

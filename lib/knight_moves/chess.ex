@@ -18,6 +18,7 @@ defmodule KnightMoves.Chess do
       [%Game{}, ...]
 
   """
+  @spec list_games() :: [Game.t()] | []
   def list_games do
     Repo.all(Game)
   end
@@ -36,6 +37,7 @@ defmodule KnightMoves.Chess do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_game!(String.t()) :: Game.t() | Ecto.NoResultsError.t()
   def get_game!(id), do: Repo.get!(Game, id)
 
   @doc """
@@ -50,6 +52,7 @@ defmodule KnightMoves.Chess do
       }}
 
   """
+  @spec new_game(map()) :: Game.t()
   def new_game(attrs \\ %{}) do
     %Game{}
     |> Map.merge(Game.default_attrs())
@@ -68,6 +71,7 @@ defmodule KnightMoves.Chess do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_game(map()) :: {:ok, Game.t()} | {:error, Ecto.Changeset.t()}
   def create_game(attrs \\ %{}) do
     %Game{}
     |> Game.changeset(attrs)
@@ -86,6 +90,7 @@ defmodule KnightMoves.Chess do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_game(Game.t(), map()) :: {:ok, Game.t()} | {:error, Ecto.Changeset.t()}
   def update_game(%Game{} = game, attrs) do
     game
     |> Game.changeset(attrs)
@@ -104,6 +109,7 @@ defmodule KnightMoves.Chess do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_game(Game.t()) :: {:ok, Game.t()} | {:error, Ecto.Changeset.t()}
   def delete_game(%Game{} = game) do
     Repo.delete(game)
   end
@@ -117,6 +123,7 @@ defmodule KnightMoves.Chess do
       %Ecto.Changeset{data: %Game{}}
 
   """
+  @spec change_game(Game.t(), map()) :: {:ok, Game.t()} | {:error, Ecto.Changeset.t()}
   def change_game(%Game{} = game, attrs \\ %{}) do
     Game.changeset(game, attrs)
   end
@@ -129,6 +136,7 @@ defmodule KnightMoves.Chess do
       iex> game_board(game)
       %Board{}
   """
+  @spec game_board(%{fen: String.t()}) :: Board.t()
   def game_board(%{fen: fen}) do
     %Board{}
     |> Board.import_fen(fen)
@@ -139,19 +147,41 @@ defmodule KnightMoves.Chess do
     %Board{}
   end
 
+  @spec start_bb_server() :: {:ok, pid()} | {:error, any}
   def start_bb_server do
     :binbo.new_server()
   end
 
+  @type game_status() ::
+          :continue
+          | {:checkmate, :white_wins | :black_wins}
+          | {:draw,
+             :stalemate
+             | :rule50
+             | :insufficient_material
+             | :threefold_repetition
+             | {:manual, any()}}
+          | {:winner, any(), {:manual, any()}}
+
+  @spec start_game(pid(), Game.t()) :: {:ok, game_status()} | {:error, any()}
   def start_game(bb_pid, %Game{fen: fen}) do
     :binbo.new_game(bb_pid, fen)
   end
 
+  @spec refresh_game_state(pid(), Game.t()) ::
+          {:ok, Game.t()} | {:error, Ecto.Changeset.t() | {:bad_game, any()}}
   def refresh_game_state(bb_pid, game) do
-    {:ok, fen} = :binbo.get_fen(bb_pid)
-    update_game(game, %{fen: fen})
+    case :binbo.get_fen(bb_pid) do
+      {:ok, fen} ->
+        update_game(game, %{fen: fen})
+
+      {:error, {:bad_game, term}} ->
+        {:error, {:bad_game, term}}
+    end
   end
 
+  @spec submit_move(pid(), String.t() | charlist()) ::
+          {:ok, game_status()} | {:error, :binbo_game.move_error()}
   def submit_move(bb_pid, move) do
     :binbo.move(bb_pid, move)
   end

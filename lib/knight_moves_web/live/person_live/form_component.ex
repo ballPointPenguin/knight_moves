@@ -7,7 +7,7 @@ defmodule KnightMovesWeb.PersonLive.FormComponent do
 
   alias KnightMoves.Accounts
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def update(%{person: person} = assigns, socket) do
     changeset = Accounts.change_person(person)
 
@@ -17,7 +17,7 @@ defmodule KnightMovesWeb.PersonLive.FormComponent do
      |> assign(:changeset, changeset)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def handle_event("validate", %{"person" => person_params}, socket) do
     changeset =
       socket.assigns.person
@@ -27,6 +27,7 @@ defmodule KnightMovesWeb.PersonLive.FormComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  @impl Phoenix.LiveComponent
   def handle_event("save", %{"person" => person_params}, socket) do
     save_person(socket, socket.assigns.action, person_params)
   end
